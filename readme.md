@@ -12,7 +12,7 @@ This project uses [Feathers](http://feathersjs.com). An open source framework fo
 2. Install your dependencies
 
     ```
-    cd path/to/egg-farm-portal
+    cd path/to/project
     npm install
     ```
 
@@ -56,11 +56,11 @@ This project uses [Feathers](http://feathersjs.com). An open source framework fo
     psql postgres -U postgres;
     ```
     ```sql
-    CREATE DATABASE egg_farm_portal;
+    CREATE DATABASE db_name;
     ```
 7. Set up the connection on any database client such as pgAdmin or DBeaver etc using the following configuration:
     ```
-    database = egg_farm_portal
+    database = db_name
     username = postgres
     password = password
     ```
