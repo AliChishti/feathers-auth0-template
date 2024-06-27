@@ -1,0 +1,96 @@
+{
+  "name": "egg-farm-portal",
+  "description": "",
+  "version": "0.0.0",
+  "homepage": "",
+  "private": true,
+  "keywords": [
+    "feathers"
+  ],
+  "contributors": [],
+  "bugs": {},
+  "engines": {
+    "node": ">= 20.12.2"
+  },
+  "feathers": {
+    "language": "js",
+    "packager": "npm",
+    "database": "postgresql",
+    "framework": "express",
+    "transports": [
+      "rest",
+      "websockets"
+    ],
+    "schema": false
+  },
+  "directories": {
+    "lib": "src",
+    "test": "test"
+  },
+  "files": [
+    "lib/client.js",
+    "lib/**/*.d.ts",
+    "lib/**/*.shared.js"
+  ],
+  "main": "src/client",
+  "type": "module",
+  "scripts": {
+    "start": "node src",
+    "dev": "npm run clean && nodemon src/",
+    "build": "npm run clean && npm run compile-sass:prod && npm run compile-js:prod && npm run compile-assets",
+    "prettier": "npx prettier \"**/*.js\" --write",
+    "mocha": "cross-env NODE_ENV=test mocha test/ --recursive --exit",
+    "test": "cross-env NODE_ENV=test npm run migrate && npm run mocha",
+    "bundle:client": "npm pack --pack-destination ./public",
+    "migrate": "knex migrate:latest",
+    "migrate:make": "",
+    "clean": "rm -rf ./public/app/* ./public/deps/*",
+    "compile-sass": "sass src/client/css/app/index.scss public/app/style.css",
+    "compile-sass:prod": "sass --no-source-map --style=compressed src/client/css/app/index.scss public/app/style.css",
+    "compile-js": "NODE_ENV=DEV node ./scripts/build.js",
+    "compile-js:prod": "node ./scripts/build.js",
+    "compile-assets": "svgo -f src/client/images/ -o public/images && cp src/client/images/*.png public/images/"
+  },
+  "nodemonConfig": {
+    "ext": "js,json,scss,handlebars",
+    "watch": [
+      "src/"
+    ],
+    "events": {
+      "start": "npm run compile-sass && npm run compile-js"
+    }
+  },
+  "dependencies": {
+    "@feathersjs/adapter-commons": "^5.0.24",
+    "@feathersjs/authentication": "^5.0.24",
+    "@feathersjs/authentication-client": "^5.0.24",
+    "@feathersjs/configuration": "^5.0.24",
+    "@feathersjs/errors": "^5.0.24",
+    "@feathersjs/express": "^5.0.24",
+    "@feathersjs/feathers": "^5.0.24",
+    "@feathersjs/knex": "^5.0.24",
+    "@feathersjs/schema": "^5.0.24",
+    "@feathersjs/socketio": "^5.0.24",
+    "@feathersjs/transport-commons": "^5.0.24",
+    "compression": "^1.7.4",
+    "esbuild": "^0.20.2",
+    "express": "^4.19.2",
+    "express-handlebars": "^7.1.2",
+    "express-openid-connect": "^2.17.1",
+    "handlebars": "^4.7.8",
+    "knex": "^3.1.0",
+    "pg": "^8.11.5",
+    "sass": "^1.76.0",
+    "svgo": "^3.2.0",
+    "winston": "^3.13.0"
+  },
+  "devDependencies": {
+    "@feathersjs/cli": "^5.0.24",
+    "@feathersjs/rest-client": "^5.0.24",
+    "axios": "^1.6.8",
+    "cross-env": "^7.0.3",
+    "mocha": "^10.4.0",
+    "nodemon": "^3.1.0",
+    "prettier": "^3.2.5"
+  }
+}
